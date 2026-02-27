@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation Complète : Cold Email B2B & Prospection IA (Clay, Instantly)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ink: #0c1222;
+            --ink-soft: #334155;
+            --ink-muted: #64748b;
+            --surface: #f8fafc;
+            --blue-primary: #e11d48; /* Base Rose/Fuchsia for Sales/Outbound */
+            --radius-xl: 28px;
+            --slide-transition: 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
+            overflow: hidden;
+            background-color: var(--surface);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- AMBIANCE OUTBOUND (Rose & Fuchsia) --- */
+        .blob { position: fixed; filter: blur(100px); z-index: -1; opacity: 0.45; animation: blobFloat 18s infinite ease-in-out; pointer-events: none; }
+        .blob-1 { top: -10%; left: -10%; width: 550px; height: 550px; background: radial-gradient(circle, #ffe4e6 0%, #fff1f2 100%); animation-delay: 0s; }
+        .blob-2 { bottom: -10%; right: -10%; width: 650px; height: 650px; background: radial-gradient(circle, #fbcfe8 0%, #fdf2f8 100%); animation-delay: 6s; }
+        .blob-3 { top: 40%; left: 30%; width: 450px; height: 450px; background: radial-gradient(circle, #fce7f3 0%, #ffffff 100%); animation-delay: 3s; opacity: 0.5; }
+        
+        @keyframes blobFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(25px, 40px) scale(1.03); }
+            66% { transform: translate(-15px, 20px) scale(0.97); }
+        }
+
+        .bg-grid { position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5; background-size: 60px 60px; background-image: linear-gradient(to right, rgba(225, 29, 72, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(225, 29, 72, 0.05) 1px, transparent 1px); }
+
+        /* --- SLIDE SYSTEM --- */
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; opacity: 0; pointer-events: none;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; z-index: 1;
+            transition: opacity var(--slide-transition), transform var(--slide-transition), filter var(--slide-transition);
+            transform: scale(0.98) translateY(10px); filter: blur(4px);
+        }
+        .slide.active { opacity: 1; pointer-events: auto; transform: scale(1) translateY(0); filter: blur(0px); z-index: 2; }
+
+        .anim { opacity: 0; transform: translateY(20px); transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .active .anim { opacity: 1; transform: translateY(0); }
+        .d1 { transition-delay: 100ms; } .d2 { transition-delay: 200ms; } .d3 { transition-delay: 300ms; }
+        .d4 { transition-delay: 400ms; } .d5 { transition-delay: 500ms; } .d6 { transition-delay: 600ms; }
+
+        /* --- CARDS ZÉRO BORDURE --- */
+        .glass { background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: none; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04), 0 2px 10px rgba(0, 0, 0, 0.02); border-radius: var(--radius-xl); }
+        .glass-strong { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border: none; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06), 0 5px 15px rgba(0, 0, 0, 0.03); border-radius: var(--radius-xl); }
+        
+        .logo-box { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); border: none; box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.06); border-radius: 20px; padding: 20px 36px; }
+        .nav-btn { padding: 14px; border-radius: 50%; border: none; cursor: pointer; transition: all 0.2s ease; outline: none; display: flex; align-items: center; justify-content: center; }
+        .nav-btn:active { transform: scale(0.92); }
+        .nav-prev { background: white; color: var(--ink-muted); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .nav-next { background: var(--ink); color: white; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); }
+        .progress-track { height: 3px; background: #e2e8f0; }
+        .progress-fill { height: 100%; background: var(--blue-primary); transition: width 0.3s ease; }
+        .slide-counter { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-muted); letter-spacing: 0.08em; }
+        .badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 999px; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+        
+        .content-scroll { max-height: 80vh; overflow-y: auto; padding-right: 1rem; scrollbar-width: thin; }
+        .content-scroll::-webkit-scrollbar { width: 6px; }
+        .content-scroll::-webkit-scrollbar-track { background: transparent; }
+        .content-scroll::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 10px; }
+
+        /* Quiz styles */
+        .quiz-option { cursor: pointer; display: flex; items-center; gap: 0.75rem; padding: 0.5rem; border-radius: 0.5rem; transition: background 0.2s; }
+        .quiz-option:hover { background-color: rgba(255, 228, 230, 0.5); }
+        .quiz-radio { width: 1.25rem; height: 1.25rem; accent-color: var(--blue-primary); cursor: pointer; }
+        
+        /* Table Layout for Clay */
+        .clay-table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        .clay-table th { background: #f8fafc; padding: 12px; font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        .clay-table td { padding: 12px; font-size: 13px; color: #334155; border-bottom: 1px solid #f1f5f9; background: white; }
+    </style>
+</head>
+<body>
+
+    <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div><div class="bg-grid"></div>
+
+    <nav class="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+        <span class="slide-counter" id="slideCounter">01 / 28</span>
+        <button onclick="prevSlide()" class="nav-btn nav-prev"><i data-lucide="arrow-left" width="20" height="20"></i></button>
+        <button onclick="nextSlide()" class="nav-btn nav-next"><i data-lucide="arrow-right" width="20" height="20"></i></button>
+    </nav>
+    <div class="fixed bottom-0 left-0 w-full progress-track z-50"><div id="progress" class="progress-fill" style="width:0%"></div></div>
+
+    <section class="slide active">
+        <div class="anim float mb-8">
+            <div class="logo-box flex items-center justify-center w-24 h-24 mx-auto">
+                <i data-lucide="target" class="text-rose-600" width="40" height="40"></i>
+            </div>
+        </div>
+        <div class="max-w-4xl text-center">
+            <div class="anim d1 badge bg-rose-50 text-rose-700 mb-6">
+                <span class="w-2 h-2 bg-rose-600 rounded-full animate-pulse"></span>
+                FORMATION COMPLÈTE
+            </div>
+            <h1 class="anim d2 text-6xl md:text-8xl font-black tracking-tight leading-none mb-6 text-slate-900">
+                Cold Emailing <span class="text-transparent bg-clip-text bg-gradient-to-r from-rose-500 to-fuchsia-500">IA</span>
+            </h1>
+            <p class="anim d3 text-xl md:text-2xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed mt-6">
+                L'art de l'hyper-personnalisation à grande échelle. Transformez une base de données froide en <span class="bg-white px-3 py-1 rounded-lg shadow-sm text-slate-800 mx-1 font-bold">machine à rendez-vous.</span>
+            </p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full">
+            <h2 class="anim d1 text-4xl font-bold mb-10 text-center">Le Programme</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="anim d2 glass p-6 border-t-4 border-slate-300">
+                    <div class="text-slate-400 font-black text-2xl mb-2">01</div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Délivrabilité (Tech)</h3>
+                    <p class="text-sm text-slate-600">Comprendre le réseau : SPF, DKIM, DMARC, et Domaines Miroirs.</p>
+                </div>
+                <div class="anim d3 glass p-6 border-t-4 border-rose-400">
+                    <div class="text-rose-400 font-black text-2xl mb-2">02</div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Sourcing & Scraping</h3>
+                    <p class="text-sm text-slate-600">Récupérer la donnée brute (Apollo, LinkedIn, Google Maps).</p>
+                </div>
+                <div class="anim d4 glass p-6 border-t-4 border-fuchsia-400">
+                    <div class="text-fuchsia-400 font-black text-2xl mb-2">03</div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">L'Usine à Données</h3>
+                    <p class="text-sm text-slate-600">Maîtriser Clay.com et le Waterfall Enrichment.</p>
+                </div>
+                <div class="anim d5 glass p-6 border-t-4 border-purple-400">
+                    <div class="text-purple-400 font-black text-2xl mb-2">04</div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Copywriting IA</h3>
+                    <p class="text-sm text-slate-600">Prompting B2B, Framework PAS, Liquid Syntax et Spintax.</p>
+                </div>
+                <div class="anim d6 glass-strong p-6 border-t-4 border-amber-400 shadow-md transform scale-105">
+                    <div class="text-amber-500 font-black text-2xl mb-2">05</div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Ateliers Pratiques</h3>
+                    <p class="text-sm text-slate-600">Use cases concrets : Levée de fonds, recrutement, social selling.</p>
+                </div>
+                <div class="anim d6 glass p-6 border-t-4 border-emerald-400">
+                    <div class="text-emerald-400 font-black text-2xl mb-2">06</div>
+                    <h3 class="font-bold text-lg mb-2 text-slate-800">Opérations & Quiz</h3>
+                    <p class="text-sm text-slate-600">Séquences (Instantly/Lemlist), Inbox IA et validation de vos acquis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full text-center">
+            <div class="anim d1 badge bg-slate-900 text-white mb-4">Introduction</div>
+            <h2 class="anim d2 text-4xl md:text-5xl font-bold mb-10 text-slate-900">La mort du "Spray & Pray"</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="anim d3 glass p-8">
+                    <i data-lucide="mail-warning" class="text-slate-400 mb-4" width="32" height="32"></i>
+                    <h3 class="font-bold text-lg mb-2">Ignoré</h3>
+                    <p class="text-sm text-slate-500">"Bonjour {FirstName}, je vois que vous travaillez chez {Company}...". Ce template de 2018 ne marche plus. Le cerveau humain filtre ce pattern visuel en 1 seconde.</p>
+                </div>
+                <div class="anim d4 glass p-8">
+                    <i data-lucide="shield-alert" class="text-slate-400 mb-4" width="32" height="32"></i>
+                    <h3 class="font-bold text-lg mb-2">Pénalisé (Spam)</h3>
+                    <p class="text-sm text-slate-500">Les filtres anti-spam de Google et Microsoft détruisent instantanément les domaines qui envoient 1000 fois le même message exact.</p>
+                </div>
+                <div class="anim d5 glass-strong p-8 shadow-lg transform scale-105 border-t-4 border-rose-500">
+                    <i data-lucide="target" class="text-rose-500 mb-4" width="32" height="32"></i>
+                    <h3 class="font-bold text-lg mb-2">La seule issue</h3>
+                    <p class="text-sm text-slate-600">L'hyper-personnalisation. Prouver au prospect dans les <strong>3 premières secondes</strong> que l'email a été écrit spécifiquement pour lui, après avoir étudié son profil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full text-center">
+            <div class="anim d1 badge bg-rose-100 text-rose-700 mb-4">Module 1 : Délivrabilité</div>
+            <h2 class="anim d2 text-4xl font-bold mb-8 text-slate-900">La Règle d'Or (Le Burn-out de domaine)</h2>
+            <div class="anim d3 glass-strong p-10 flex flex-col md:flex-row items-center gap-10 shadow-lg">
+                <div class="w-24 h-24 bg-red-100 text-red-600 rounded-full flex items-center justify-center shrink-0 shadow-inner">
+                    <i data-lucide="alert-octagon" width="40" height="40"></i>
+                </div>
+                <div class="text-left">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-2">Ne prospectez JAMAIS avec votre domaine principal !</h3>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Si votre entreprise s'appelle <code>datak.io</code> et que vous envoyez des Cold Emails avec, vous risquez d'être signalé en Spam. <strong>Résultat : Vos emails internes, vos factures et vos communications clients atterriront aussi en Spam.</strong>
+                    </p>
+                    <div class="bg-rose-50 p-4 rounded-lg border border-rose-100">
+                        <span class="font-bold text-rose-800 text-sm">La Solution : Achetez des "Domaines Miroirs" (Secondary Domains).</span>
+                        <p class="text-xs text-rose-700 mt-1 font-mono">Exemples : getdatak.io, trydatak.com, datak-app.io, meetdatak.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-6xl w-full text-center">
+            <div class="anim d1 badge bg-rose-100 text-rose-700 mb-4">Module 1 : Délivrabilité</div>
+            <h2 class="anim d2 text-4xl font-bold mb-8 text-slate-900">La Trinité de la Réputation (DNS)</h2>
+            <p class="anim d3 text-slate-600 mb-8 max-w-3xl mx-auto">Pour que Google accepte votre email, vous devez prouver cryptographiquement que vous êtes bien le propriétaire du domaine envoyé. Cela se passe dans les enregistrements DNS de votre hébergeur (OVH, GoDaddy, etc.).</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+                <div class="anim d4 glass p-6 border-t-4 border-blue-500">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-lucide="shield-check" class="text-blue-500"></i>
+                        <h3 class="font-bold text-lg text-slate-800">1. SPF</h3>
+                    </div>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase mb-2">Sender Policy Framework</p>
+                    <p class="text-xs text-slate-600">C'est la <strong>liste d'invités</strong>. Vous déclarez publiquement quels serveurs (ex: Google Workspace, Outlook) ont le droit d'envoyer des emails en votre nom.</p>
+                </div>
+                <div class="anim d5 glass p-6 border-t-4 border-purple-500">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-lucide="key" class="text-purple-500"></i>
+                        <h3 class="font-bold text-lg text-slate-800">2. DKIM</h3>
+                    </div>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase mb-2">DomainKeys Identified Mail</p>
+                    <p class="text-xs text-slate-600">C'est le <strong>sceau de cire</strong>. Une signature cryptographique cachée dans chaque email qui prouve que le message n'a pas été modifié en cours de route par un hacker.</p>
+                </div>
+                <div class="anim d6 glass-strong p-6 border-t-4 border-rose-500 shadow-md transform scale-105">
+                    <div class="flex items-center gap-2 mb-3">
+                        <i data-lucide="gavel" class="text-rose-500"></i>
+                        <h3 class="font-bold text-lg text-slate-800">3. DMARC</h3>
+                    </div>
+                    <p class="text-[10px] text-slate-500 font-bold uppercase mb-2">Domain-based Message Auth</p>
+                    <p class="text-xs text-slate-600">C'est le <strong>videur de la boîte</strong>. Il dit aux autres serveurs quoi faire si le SPF ou le DKIM échoue. <em>"Si ce n'est pas moi, rejette l'email immédiatement (p=reject)."</em></p>
+                </div>
+            </div>
+            <p class="anim d6 text-xs text-rose-600 font-bold mt-6">Sans ces 3 configurations, 100% de vos Cold Emails iront en Spam en 2026. C'est obligatoire.</p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full">
+            <div class="anim d1 badge bg-fuchsia-100 text-fuchsia-700 mb-4 mx-auto flex w-max">Module 2 : Sourcing & Scraping</div>
+            <h2 class="anim d2 text-center text-4xl font-bold mb-10">Où trouver la donnée brute ?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="anim d3 glass p-8">
+                    <h3 class="text-xl font-bold text-slate-800 mb-4">Générer une liste de travail</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Tout commence par un tableau (CSV) contenant au minimum le Nom, Prénom, Titre, Entreprise et URL du site web. L'email n'est pas obligatoire ici, on le trouvera plus tard.
+                    </p>
+                    <ul class="space-y-3 text-sm font-bold text-slate-700">
+                        <li class="flex items-center gap-2"><div class="w-6 h-6 bg-slate-100 rounded flex items-center justify-center"><i data-lucide="database" width="14"></i></div> Apollo.io (B2B Global, rapide)</li>
+                        <li class="flex items-center gap-2"><div class="w-6 h-6 bg-blue-100 text-blue-600 rounded flex items-center justify-center"><i data-lucide="linkedin" width="14"></i></div> Sales Navigator (Donnée la plus fraîche)</li>
+                        <li class="flex items-center gap-2"><div class="w-6 h-6 bg-emerald-100 text-emerald-600 rounded flex items-center justify-center"><i data-lucide="map-pin" width="14"></i></div> Google Maps (Scraping pour commerces locaux)</li>
+                    </ul>
+                </div>
+                <div class="anim d4 glass-strong p-8 bg-slate-900 border-l-4 border-fuchsia-500 shadow-xl">
+                    <h3 class="text-lg font-bold text-white mb-2">Intent > Volume</h3>
+                    <p class="text-sm text-slate-300">Ne scrappez pas "Tous les CEO à Paris". Scrappez :</p>
+                    <div class="mt-4 space-y-2 font-mono text-xs text-green-400">
+                        > Les entreprises qui recrutent des commerciaux depuis 1 mois.<br>
+                        > Les startups qui viennent de lever des fonds.<br>
+                        > Les personnes qui ont commenté le post d'un de vos concurrents (Social Intent).
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-6xl w-full text-center">
+            <div class="anim d1 badge bg-purple-100 text-purple-700 mb-4">Module 3 : L'Usine à Données</div>
+            <h2 class="anim d2 text-4xl font-bold mb-8 text-slate-900">Bienvenue dans Clay.com</h2>
+            <p class="anim d3 text-slate-600 mb-6 max-w-3xl mx-auto">Clay, c'est comme un Google Sheet (ou Airtable) sous stéroïdes. Chaque colonne peut exécuter une API externe ou un prompt ChatGPT sur la ligne en cours.</p>
+            
+            <div class="anim d4 glass-strong p-4 mx-auto overflow-x-auto shadow-2xl border border-slate-200">
+                <table class="clay-table">
+                    <thead>
+                        <tr>
+                            <th class="w-10 text-center">#</th>
+                            <th>A. Linkedin Profile (Input)</th>
+                            <th>B. Find Email (Waterfall)</th>
+                            <th>C. Scrape Website (Action)</th>
+                            <th><span class="text-purple-600 flex items-center gap-1"><i data-lucide="sparkles" width="12"></i> D. Generate Icebreaker (AI)</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-center text-slate-400 font-mono text-xs">1</td>
+                            <td><div class="flex items-center gap-2"><img src="https://i.pravatar.cc/150?u=1" class="w-5 h-5 rounded-full"> Jean Dupont (CMO)</div></td>
+                            <td><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[10px] font-bold">jean@datak.io (Dropcontact)</span></td>
+                            <td class="text-[10px] text-slate-500 truncate max-w-[150px]">"DataK est une agence d'automatisation IA..."</td>
+                            <td class="font-mono text-[10px] text-purple-700 bg-purple-50 p-1.5 rounded truncate max-w-[200px]">"Super approche sur l'automatisation IA chez DataK..."</td>
+                        </tr>
+                        <tr>
+                            <td class="text-center text-slate-400 font-mono text-xs">2</td>
+                            <td><div class="flex items-center gap-2"><img src="https://i.pravatar.cc/150?u=2" class="w-5 h-5 rounded-full"> Alice Martin (CEO)</div></td>
+                            <td><span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded text-[10px] font-bold">alice@acme.com (Hunter)</span></td>
+                            <td class="text-[10px] text-slate-500 truncate max-w-[150px]">"Acme Corp révolutionne la logistique du froid..."</td>
+                            <td class="font-mono text-[10px] text-purple-700 bg-purple-50 p-1.5 rounded truncate max-w-[200px]">"Félicitations pour votre innovation dans la logistique..."</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="anim d5 text-xs text-slate-500 mt-4">Au lieu de faire 1000 recherches Google manuelles, vous configurez la colonne C une seule fois, et Clay scrappe 1000 sites web en 1 minute.</p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full text-center">
+            <div class="anim d1 badge bg-purple-100 text-purple-700 mb-4">Module 3 : L'Usine à Données</div>
+            <h2 class="anim d2 text-4xl font-bold mb-8 text-slate-900">Le "Waterfall Enrichment" (Cascade)</h2>
+            <p class="anim d3 text-slate-600 mb-10 max-w-2xl mx-auto">
+                Chercher l'adresse email d'un prospect coûte cher. Si un outil ne la trouve pas, on paie quand même. Le Waterfall permet de chercher en cascade de manière intelligente pour garantir la trouvaille et minimiser le coût.
+            </p>
+            <div class="anim d4 flex flex-col items-center">
+                <div class="glass-strong p-4 w-96 border-l-4 border-blue-500 flex justify-between items-center">
+                    <span class="font-bold text-sm">1. Hunter.io</span>
+                    <span class="text-xs bg-slate-100 px-2 py-1 rounded">0.01$ / req</span>
+                </div>
+                <div class="w-0.5 h-6 bg-slate-300 relative"><span class="absolute top-1 -right-24 text-[10px] font-bold text-red-500">Si non trouvé (Blank)</span></div>
+                
+                <div class="glass-strong p-4 w-96 border-l-4 border-fuchsia-500 flex justify-between items-center">
+                    <span class="font-bold text-sm">2. Dropcontact</span>
+                    <span class="text-xs bg-slate-100 px-2 py-1 rounded">0.02$ / req</span>
+                </div>
+                <div class="w-0.5 h-6 bg-slate-300 relative"><span class="absolute top-1 -right-24 text-[10px] font-bold text-red-500">Si non trouvé (Blank)</span></div>
+                
+                <div class="glass-strong p-4 w-96 border-l-4 border-emerald-500 flex justify-between items-center">
+                    <span class="font-bold text-sm">3. Datagma / Prospeo</span>
+                    <span class="text-xs bg-slate-100 px-2 py-1 rounded">0.03$ / req</span>
+                </div>
+                
+                <p class="text-xs font-bold text-emerald-600 mt-6 bg-emerald-50 px-4 py-2 rounded-full">Résultat : Vous passez de 40% d'emails trouvés à 85% d'emails valides.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full">
+            <div class="anim d1 badge bg-amber-100 text-amber-700 mb-4 mx-auto flex w-max">Module 4 : Copywriting IA</div>
+            <h2 class="anim d2 text-center text-4xl font-bold mb-10">L'Icebreaker (Les 150 1ers caractères)</h2>
+            <div class="anim d3 glass-strong p-10 flex flex-col md:flex-row items-center gap-10 shadow-xl">
+                <div class="flex-1">
+                    <h3 class="text-2xl font-bold text-slate-800 mb-4">L'enjeu de la Preview</h3>
+                    <p class="text-slate-600 leading-relaxed mb-4">
+                        Sur mobile, le prospect voit l'objet et la première phrase avant d'ouvrir. Si la phrase est générique, il supprime sans lire.<br>
+                        Le rôle de l'IA est de rédiger cette phrase d'accroche (Icebreaker) en se basant sur le scraping fait juste avant.
+                    </p>
+                </div>
+                <div class="flex-1 w-full flex flex-col gap-3">
+                    <div class="bg-red-50 border border-red-100 p-4 rounded text-sm text-red-800 line-through">
+                        "J'espère que vous allez bien. J'ai vu votre profil LinkedIn et je pense que notre synergie..."
+                    </div>
+                    <div class="bg-emerald-50 border border-emerald-100 p-4 rounded text-sm text-emerald-800 font-bold shadow-sm relative">
+                        <i data-lucide="eye" class="absolute top-2 right-2 text-emerald-300" width="16"></i>
+                        "Félicitations pour votre récente levée de fonds chez Acme ! J'ai adoré votre concept de logistique..."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-6xl w-full text-center">
+            <h2 class="anim d1 text-4xl font-bold mb-8">Simulateur : IA au travail (Clay)</h2>
+            
+            <div class="anim d2 glass p-8 relative max-w-4xl mx-auto shadow-xl border-t-4 border-amber-400">
+                <div class="flex items-center justify-between text-left gap-6">
+                    <div class="w-1/3 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                        <div class="text-xs font-bold text-slate-400 mb-2 uppercase">Input (Data Sourcing)</div>
+                        <div class="text-sm font-bold text-slate-800">Jean Dupont</div>
+                        <div class="text-xs text-slate-600">CMO @ DataK</div>
+                        <div class="text-[10px] text-slate-500 mt-2">Dernier post LinkedIn : "L'IA générative change la donne pour les marketeurs en 2026."</div>
+                    </div>
+                    
+                    <div class="flex flex-col items-center justify-center">
+                        <button class="bg-amber-500 text-white px-4 py-2 rounded-full text-xs font-bold hover:bg-amber-600 transition shadow-lg flex items-center gap-2" onclick="playClaySim()">
+                            Générer IA <i data-lucide="sparkles" width="14"></i>
+                        </button>
+                    </div>
+
+                    <div class="w-1/2 bg-slate-900 p-4 rounded-xl border border-slate-800 relative min-h-[120px]">
+                        <div class="text-xs font-bold text-slate-400 mb-2 uppercase">Output (Icebreaker IA)</div>
+                        <div id="sim-icebreaker" class="text-green-400 font-mono text-sm opacity-0 transition-opacity duration-500"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full">
+            <div class="anim d1 badge bg-amber-100 text-amber-700 mb-4 mx-auto flex w-max">Module 4 : Copywriting IA</div>
+            <h2 class="anim d2 text-center text-4xl font-bold mb-8">Le Prompt Copywriting (Framework PAS)</h2>
+            <p class="anim d3 text-center text-slate-600 mb-6">Ne demandez jamais à l'IA d'écrire "un email de vente". Elle sera insupportable. Forcez-la dans un Framework scientifique.</p>
+            <div class="anim d4 glass-strong p-8 bg-slate-900 text-green-400 font-mono text-xs shadow-xl rounded-xl max-w-3xl mx-auto leading-relaxed">
+                <span class="text-slate-400">// System Prompt (Directives)</span><br>
+                <span class="text-slate-300">Tu es un copywriter B2B de génie. Rédige un cold email de moins de 100 mots. Utilise le framework PAS (Problem, Agitate, Solve).</span><br><br>
+                <span class="text-yellow-400">// Inputs Mappés depuis Clay</span><br>
+                - Nom du prospect : <span class="text-fuchsia-400">{{Name}}</span><br>
+                - Problème détecté : <span class="text-fuchsia-400">{{Pain_Point_Scraped}}</span><br>
+                - Icebreaker validé : <span class="text-fuchsia-400">{{Column_Icebreaker}}</span><br><br>
+                <span class="text-blue-400">// Règles strictes (Garde-fous) :</span><br>
+                - Ne dis JAMAIS "Bonjour" ou "J'espère que vous allez bien". Démarre directement par l'Icebreaker.<br>
+                - Termine par un Call-to-Action très doux (ex: "Est-ce un sujet d'actualité pour vous ?").<br>
+                - Le ton doit être direct, non-commercial, comme un email interne envoyé à un collègue depuis un iPhone.
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full text-center">
+            <div class="anim d1 badge bg-amber-100 text-amber-700 mb-4">Technique de Pro</div>
+            <h2 class="anim d2 text-4xl font-bold mb-8 text-slate-900">Le Spintax & Liquid Syntax</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <div class="anim d3 glass p-8">
+                    <div class="flex items-center gap-2 mb-2"><i data-lucide="shuffle" class="text-amber-500"></i><h3 class="text-xl font-bold text-slate-800">Le Spintax (Randomisation)</h3></div>
+                    <p class="text-sm text-slate-600 mb-4">Si vous envoyez 1000 fois la même structure d'email, les serveurs détecteront une empreinte. Le Spintax force l'outil d'envoi à choisir une variante au hasard.</p>
+                    <div class="text-xs font-mono bg-slate-50 border border-slate-200 p-3 rounded text-slate-600">
+                        <span class="font-bold text-amber-600">{Salut|Bonjour|Hello}</span> Jean, <span class="font-bold text-amber-600">{je vois que|j'ai remarqué que}</span> vous...
+                    </div>
+                </div>
+                <div class="anim d4 glass-strong p-8 shadow-lg border-t-4 border-amber-500">
+                    <div class="flex items-center gap-2 mb-2"><i data-lucide="code" class="text-slate-800"></i><h3 class="text-xl font-bold text-slate-800">Liquid Syntax (Conditions)</h3></div>
+                    <p class="text-sm text-slate-700 mb-4">Codez de la logique directement dans l'email (supporté par Instantly/Lemlist) en cas de donnée manquante de l'IA.</p>
+                    <div class="text-[10px] font-mono bg-slate-900 p-3 rounded text-green-400 leading-relaxed">
+                        {% if Icebreaker != "" %}<br>
+                        &nbsp;&nbsp;{{Icebreaker}}<br>
+                        {% else %}<br>
+                        &nbsp;&nbsp;Je cherchais des leaders de votre secteur et je suis tombé sur {{Company}}.<br>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full">
+            <h2 class="anim d1 text-center text-4xl font-bold mb-10">Le Filtre Anti "Spam Words"</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="anim d2 glass p-8">
+                    <h3 class="text-xl font-bold mb-4 text-slate-800">L'IA nettoie son propre texte</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-4">
+                        Il existe des mots qui déclenchent mathématiquement les filtres anti-spam. Ajoutez une instruction finale dans le prompt de Clay : <em>"Réécris cet email sans utiliser aucun des mots suivants."</em>
+                    </p>
+                </div>
+                <div class="anim d3 glass-strong p-8 bg-rose-50/50 border border-rose-100">
+                    <div class="text-xs font-bold text-rose-600 uppercase mb-4"><i data-lucide="alert-triangle" class="inline w-4 mb-1"></i> Mots strictement interdits :</div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-white border border-rose-200 text-slate-700 px-2 py-1 rounded text-xs font-bold shadow-sm">Gratuit</span>
+                        <span class="bg-white border border-rose-200 text-slate-700 px-2 py-1 rounded text-xs font-bold shadow-sm">Urgent</span>
+                        <span class="bg-white border border-rose-200 text-slate-700 px-2 py-1 rounded text-xs font-bold shadow-sm">Crypto</span>
+                        <span class="bg-white border border-rose-200 text-slate-700 px-2 py-1 rounded text-xs font-bold shadow-sm">Garantie</span>
+                        <span class="bg-white border border-rose-200 text-slate-700 px-2 py-1 rounded text-xs font-bold shadow-sm">100%</span>
+                        <span class="bg-white border border-rose-200 text-slate-700 px-2 py-1 rounded text-xs font-bold shadow-sm">Promotion</span>
+                        <span class="bg-white border border-rose-200 text-slate-700 px-2 py-1 rounded text-xs font-bold shadow-sm">🚀 (Emojis)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full text-center content-scroll">
+            <div class="anim d1 badge bg-emerald-100 text-emerald-700 mb-4">Atelier Pratique 1</div>
+            <h2 class="anim d2 text-4xl font-bold mb-8 text-slate-900">Le Signal d'Achat (Intent)</h2>
+            <p class="anim d3 text-sm text-slate-600 mb-6">Ne vendez pas un outil RH à quelqu'un qui n'en a pas besoin. Vendez-le à quelqu'un qui vient de publier 5 offres d'emploi pour des recruteurs.</p>
+
+            <div class="anim d4 glass-strong p-8 text-left shadow-lg border-l-4 border-emerald-500 max-w-3xl mx-auto">
+                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center shrink-0 font-bold">1</div>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Scraping Indeed / LinkedIn Jobs</h4>
+                        <p class="text-xs text-slate-500">Extraction des entreprises qui cherchent activement des "SDR" (Commerciaux).</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4 mb-6 pb-4 border-b border-slate-100">
+                    <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center shrink-0 font-bold">2</div>
+                    <div>
+                        <h4 class="font-bold text-slate-800">Clay : Find Contacts</h4>
+                        <p class="text-xs text-slate-500">Pour chaque entreprise, on demande à Clay de trouver le "Head of Sales" (Décideur).</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center shrink-0 font-bold"><i data-lucide="sparkles" width="16"></i></div>
+                    <div>
+                        <h4 class="font-bold text-slate-800">L'Email généré</h4>
+                        <p class="text-xs text-slate-700 font-mono mt-2 bg-slate-50 p-2 rounded">"J'ai vu que vous cherchiez activement à recruter 3 SDR cette semaine. C'est souvent difficile d'onboarder vite. On a un outil qui divise par 2 le temps de formation..."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full text-center">
+            <div class="anim d1 badge bg-blue-100 text-blue-700 mb-4">Module 6 : Opérations</div>
+            <h2 class="anim d2 text-4xl font-bold mb-8 text-slate-900">Le Séquençage Multicanal</h2>
+            <p class="anim d3 text-slate-600 mb-8 max-w-2xl mx-auto">Le premier email ne génère que 30% des réponses. Le "Follow-up" (Relance) génère le reste. L'IA peut orchestrer plusieurs canaux sans avoir l'air d'un robot.</p>
+            
+            <div class="anim d4 flex flex-col md:flex-row justify-center items-center gap-4">
+                <div class="glass-strong p-4 w-48 text-center border-t-4 border-blue-500 shadow-md">
+                    <i data-lucide="linkedin" class="mx-auto mb-2 text-blue-600"></i>
+                    <h4 class="font-bold text-sm">Jour 1</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">Visite du profil + Demande de connexion IA simple ("Hello Jean !").</p>
+                </div>
+                <i data-lucide="arrow-right" class="text-slate-300 hidden md:block"></i>
+                <div class="glass-strong p-4 w-48 text-center border-t-4 border-rose-500 shadow-md">
+                    <i data-lucide="mail" class="mx-auto mb-2 text-rose-600"></i>
+                    <h4 class="font-bold text-sm">Jour 2</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">L'Email Principal (Icebreaker IA + Value proposition courte).</p>
+                </div>
+                <i data-lucide="arrow-right" class="text-slate-300 hidden md:block"></i>
+                <div class="glass p-4 w-48 text-center border-t-4 border-slate-400">
+                    <i data-lucide="corner-down-right" class="mx-auto mb-2 text-slate-400"></i>
+                    <h4 class="font-bold text-sm">Jour 5</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">Bump mail ("Je me permets de remonter cet email...").</p>
+                </div>
+                <i data-lucide="arrow-right" class="text-slate-300 hidden md:block"></i>
+                <div class="glass-strong p-4 w-48 text-center border-t-4 border-emerald-500 shadow-md">
+                    <i data-lucide="phone-call" class="mx-auto mb-2 text-emerald-600"></i>
+                    <h4 class="font-bold text-sm">Jour 7</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">Cold Call. Le commercial a l'historique complet généré par Make sur son écran.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-6xl w-full text-center">
+            <h2 class="anim d1 text-4xl font-bold mb-10">Gérer l'Inbox (Unibox IA)</h2>
+            <p class="anim d2 text-slate-600 mb-8 max-w-3xl mx-auto">Quand vous envoyez 1000 emails, vous recevez 100 réponses. Les commerciaux ne doivent pas perdre de temps à lire les refus. Branchez l'API OpenAI sur l'Unibox d'Instantly.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 anim d3">
+                <div class="glass-strong p-6 text-center w-full md:w-64 border-b-4 border-emerald-500 shadow-lg relative">
+                    <div class="absolute -top-3 -right-3 w-6 h-6 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold text-xs">1</div>
+                    <h3 class="font-bold text-emerald-600 mb-2">Lead Chaud</h3>
+                    <p class="text-xs text-slate-600 italic mb-2">"Ok pour un call mardi à 14h."</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase">➔ Notif Slack + Marqué intéressé.</p>
+                </div>
+                <div class="glass p-6 text-center w-full md:w-64 border-b-4 border-amber-500">
+                    <h3 class="font-bold text-amber-600 mb-2">OOO (Congés)</h3>
+                    <p class="text-xs text-slate-600 italic mb-2">"Je suis en congé jusqu'au 12."</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase">➔ Mise en pause auto de la séquence.</p>
+                </div>
+                <div class="glass p-6 text-center w-full md:w-64 border-b-4 border-red-500">
+                    <h3 class="font-bold text-red-600 mb-2">Refus (Négatif)</h3>
+                    <p class="text-xs text-slate-600 italic mb-2">"Pas intéressé, retirez-moi de votre base."</p>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase">➔ Opt-out + Ajout Blacklist Automatique.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-4xl w-full text-center">
+            <h2 class="anim d1 text-4xl font-bold mb-10">FinOps : Coût d'Acquisition Client (CAC)</h2>
+            <div class="anim d2 glass p-0 overflow-hidden w-full mx-auto shadow-sm">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase text-xs border-b border-slate-200">
+                        <tr><th class="p-4">Outil / Service</th><th class="p-4 text-right">Coût estimé (Mensuel)</th></tr>
+                    </thead>
+                    <tbody class="text-slate-700">
+                        <tr class="border-b border-slate-100">
+                            <td class="p-4 font-bold">Achat Domaines & Workspace (x3)</td><td class="p-4 text-right">~20€</td>
+                        </tr>
+                        <tr class="border-b border-slate-100 bg-rose-50/30">
+                            <td class="p-4 font-bold flex items-center gap-2"><i data-lucide="database" width="14" class="text-rose-500"></i> Clay (Enrichissement + IA)</td><td class="p-4 text-right text-rose-600 font-bold">~149€</td>
+                        </tr>
+                        <tr class="border-b border-slate-100 bg-blue-50/30">
+                            <td class="p-4 font-bold flex items-center gap-2"><i data-lucide="send" width="14" class="text-blue-500"></i> Instantly / Lemlist (Envoi illimité)</td><td class="p-4 text-right text-blue-600 font-bold">~40€ - 90€</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="anim d3 mt-6 text-xl font-black text-slate-900">Total de l'infrastructure : ~ 250€ / mois.</div>
+            <p class="anim d4 text-xs text-slate-500 mt-2">Soit le prix de 2 jours de salaire d'un stagiaire, pour la puissance de frappe de 5 Commerciaux Séniors. Rentable dès le 1er contrat signé.</p>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-4xl w-full mx-auto">
+            <h2 class="anim d1 text-center text-4xl font-bold mb-10">Ton Plan d'Action (7 Jours)</h2>
+            <div class="anim d2 glass-strong p-10 relative">
+                <div class="absolute left-10 top-12 bottom-12 w-0.5 bg-slate-200"></div>
+                
+                <div class="anim d3 relative flex items-center gap-6 mb-6">
+                    <div class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold text-sm z-10 shrink-0">1</div>
+                    <div><span class="font-bold text-slate-800">Setup Technique :</span> Acheter 3 domaines miroirs et configurer SPF/DKIM/DMARC.</div>
+                </div>
+                <div class="anim d4 relative flex items-center gap-6 mb-6">
+                    <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm z-10 shrink-0">2</div>
+                    <div><span class="font-bold text-slate-800">Warm-up :</span> Connecter les emails à Instantly et lancer la chauffe (Minimum 14 jours).</div>
+                </div>
+                <div class="anim d5 relative flex items-center gap-6 mb-6">
+                    <div class="w-8 h-8 rounded-full bg-rose-100 text-rose-600 flex items-center justify-center font-bold text-sm z-10 shrink-0">3</div>
+                    <div><span class="font-bold text-slate-800">Sourcing & Clay :</span> Extraire 500 prospects via Apollo, les envoyer sur Clay pour Waterfall et Génération d'Icebreakers.</div>
+                </div>
+                <div class="anim d6 relative flex items-center gap-6">
+                    <div class="w-8 h-8 rounded-full bg-fuchsia-600 text-white flex items-center justify-center font-bold text-sm z-10 shrink-0"><i data-lucide="play" width="14"></i></div>
+                    <div><span class="font-bold text-fuchsia-700">Lancement :</span> Importer le CSV final dans Instantly, lancer la campagne à 30 emails / jour / domaine. Suivre l'A/B test.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-5xl w-full text-center content-scroll pb-16">
+            <div class="anim d1 badge bg-rose-100 text-rose-700 mb-4 mt-8">Validation des acquis</div>
+            <h2 class="anim d2 text-4xl font-bold mb-4 text-slate-900">Le Grand Quiz : Cold Email IA</h2>
+            <p class="anim d3 text-slate-600 mb-8 max-w-2xl mx-auto">Cochez la bonne réponse pour chaque question, puis validez pour découvrir si vous êtes prêt à scaler votre prospection.</p>
+            
+            <form id="quiz-form" onsubmit="event.preventDefault(); checkQuiz();" class="anim d4 grid grid-cols-1 gap-4 text-left max-w-3xl mx-auto">
+                
+                <div id="qcard-1" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">1.</span> Pourquoi est-il dangereux de prospecter avec son domaine principal (ex: datak.io) ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q1" value="A" class="quiz-radio"> Parce que c'est illégal selon le RGPD.</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="B" class="quiz-radio"> En cas de plainte pour Spam, les emails internes et clients iront aussi en spam.</label>
+                        <label class="quiz-option"><input type="radio" name="q1" value="C" class="quiz-radio"> Parce que l'outil d'envoi n'accepte pas les domaines principaux.</label>
+                    </div>
+                </div>
+
+                <div id="qcard-2" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">2.</span> Que sont SPF, DKIM et DMARC ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q2" value="A" class="quiz-radio"> Des outils IA pour rédiger des textes de vente.</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="B" class="quiz-radio"> Des techniques de scraping sur LinkedIn.</label>
+                        <label class="quiz-option"><input type="radio" name="q2" value="C" class="quiz-radio"> Des protocoles de sécurité DNS prouvant l'identité de l'expéditeur.</label>
+                    </div>
+                </div>
+
+                <div id="qcard-3" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">3.</span> Quelle est la limite recommandée d'envoi de Cold Emails par jour, par adresse ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q3" value="A" class="quiz-radio"> 30 à 50 emails max.</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="B" class="quiz-radio"> 500 emails max.</label>
+                        <label class="quiz-option"><input type="radio" name="q3" value="C" class="quiz-radio"> Illimité tant que c'est bien écrit.</label>
+                    </div>
+                </div>
+
+                <div id="qcard-4" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">4.</span> Qu'est-ce que le "Waterfall Enrichment" dans Clay ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q4" value="A" class="quiz-radio"> Envoyer les emails progressivement comme une cascade.</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="B" class="quiz-radio"> Interroger plusieurs fournisseurs de données à la suite pour maximiser les trouvailles et réduire les coûts.</label>
+                        <label class="quiz-option"><input type="radio" name="q4" value="C" class="quiz-radio"> Une méthode pour nettoyer les adresses "bounce" (invalides).</label>
+                    </div>
+                </div>
+
+                <div id="qcard-5" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">5.</span> Dans le prompt de rédaction, pourquoi ne faut-il pas demander à l'IA d'écrire un "email de vente" ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q5" value="A" class="quiz-radio"> L'IA refusera pour des raisons éthiques.</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="B" class="quiz-radio"> Le résultat sera trop agressif, générique et ressemblera à un spam des années 2010.</label>
+                        <label class="quiz-option"><input type="radio" name="q5" value="C" class="quiz-radio"> Parce que l'IA ne sait pas ce qu'est la vente B2B.</label>
+                    </div>
+                </div>
+
+                <div id="qcard-6" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">6.</span> Que signifie le framework "PAS" ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q6" value="A" class="quiz-radio"> Problem, Agitate, Solve.</label>
+                        <label class="quiz-option"><input type="radio" name="q6" value="B" class="quiz-radio"> Pitch, Analyse, Sell.</label>
+                        <label class="quiz-option"><input type="radio" name="q6" value="C" class="quiz-radio"> Personalize, Automate, Scale.</label>
+                    </div>
+                </div>
+
+                <div id="qcard-7" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">7.</span> À quoi sert le "Spintax" ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q7" value="A" class="quiz-radio"> À faire tourner l'envoi d'emails sur plusieurs serveurs.</label>
+                        <label class="quiz-option"><input type="radio" name="q7" value="B" class="quiz-radio"> À tirer au hasard des mots ou expressions pour ne pas laisser d'empreinte algorithmique détectable par les filtres Spam.</label>
+                        <label class="quiz-option"><input type="radio" name="q7" value="C" class="quiz-radio"> À écrire le code HTML de l'email.</label>
+                    </div>
+                </div>
+
+                <div id="qcard-8" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">8.</span> Pourquoi faut-il éviter les images, les logos et beaucoup de liens dans le 1er Cold Email ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q8" value="A" class="quiz-radio"> Pour que l'email charge plus vite sur les téléphones.</label>
+                        <label class="quiz-option"><input type="radio" name="q8" value="B" class="quiz-radio"> Pour qu'il paraisse écrit "à la main" et pour ne pas déclencher les filtres anti-spam stricts du premier contact.</label>
+                        <label class="quiz-option"><input type="radio" name="q8" value="C" class="quiz-radio"> Parce que c'est interdit par Instantly.</label>
+                    </div>
+                </div>
+
+                <div id="qcard-9" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">9.</span> Qu'est-ce qu'un signal d'achat (Intent) fort pour du B2B ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q9" value="A" class="quiz-radio"> L'entreprise existe depuis 10 ans.</label>
+                        <label class="quiz-option"><input type="radio" name="q9" value="B" class="quiz-radio"> L'entreprise vient de publier des offres d'emploi dans votre domaine d'expertise.</label>
+                        <label class="quiz-option"><input type="radio" name="q9" value="C" class="quiz-radio"> Le CEO a un profil LinkedIn Premium.</label>
+                    </div>
+                </div>
+
+                <div id="qcard-10" class="glass p-5 transition-colors duration-300 border-2 border-transparent">
+                    <p class="font-bold text-slate-800 mb-3"><span class="text-rose-500 mr-2">10.</span> Dans la gestion des réponses, que veut dire "OOO" ?</p>
+                    <div class="space-y-2 text-sm text-slate-700">
+                        <label class="quiz-option"><input type="radio" name="q10" value="A" class="quiz-radio"> Out Of Office (Réponse automatique d'absence).</label>
+                        <label class="quiz-option"><input type="radio" name="q10" value="B" class="quiz-radio"> Opt-Out Option (Lien de désinscription).</label>
+                        <label class="quiz-option"><input type="radio" name="q10" value="C" class="quiz-radio"> Open Options (Prospect indécis).</label>
+                    </div>
+                </div>
+
+                <div class="mt-8 mb-12 flex flex-col items-center">
+                    <button type="submit" class="bg-rose-600 text-white px-10 py-4 rounded-full font-bold shadow-xl hover:bg-rose-700 transition transform hover:scale-105">
+                        Valider mes réponses
+                    </button>
+                    
+                    <div id="quiz-result" class="hidden mt-6 px-8 py-4 rounded-2xl text-2xl font-black text-center shadow-lg w-full max-w-md border-2 border-transparent transition-all duration-500">
+                        Score final : 0 / 10
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="slide">
+        <div class="max-w-4xl text-center">
+            <div class="anim d1 p-6 bg-white/60 rounded-3xl mb-8 border-none backdrop-blur inline-block shadow-sm">
+                <i data-lucide="rocket" class="text-rose-600" width="48" height="48"></i>
+            </div>
+            <h2 class="anim d2 text-5xl font-black mb-6 text-slate-900">La Qualité a vaincu la Quantité.</h2>
+            <p class="anim d3 text-xl text-slate-600 font-medium mb-10 max-w-2xl mx-auto leading-relaxed">
+                Le Cold Emailing n'est pas mort, il a muté. L'IA permet d'envoyer en masse avec la précision d'un artisan. C'est l'ère du "Sniper", fini la "Mitrailleuse".
+            </p>
+            <div class="anim d4 flex gap-4 justify-center">
+                <button class="bg-slate-900 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-rose-600 transition" onclick="goToSlide(0)">
+                    Reprendre la formation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    (function() {
+        'use strict';
+        lucide.createIcons();
+
+        const slides = document.querySelectorAll('.slide');
+        const counter = document.getElementById('slideCounter');
+        const progress = document.getElementById('progress');
+        let current = 0;
+        const total = slides.length;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.toggle('active', index === current);
+            });
+            if(counter) counter.innerText = `${String(current + 1).padStart(2, '0')} / ${total}`;
+            if(progress) progress.style.width = `${((current + 1) / total) * 100}%`;
+        }
+
+        window.nextSlide = () => { if (current < total - 1) { current++; updateSlide(); } };
+        window.prevSlide = () => { if (current > 0) { current--; updateSlide(); } };
+        window.goToSlide = (n) => { current = n; updateSlide(); };
+
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowRight' || e.key === ' ') { 
+                // Ignore key press if interacting with form
+                if(document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "BUTTON") {
+                    e.preventDefault(); 
+                    nextSlide(); 
+                }
+            }
+            if(e.key === 'ArrowLeft') { 
+                if(document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "BUTTON") {
+                    e.preventDefault(); 
+                    prevSlide(); 
+                }
+            }
+        });
+
+        // Touch swipe
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; }, {passive: true});
+        document.addEventListener('touchend', e => {
+            if(touchStartX - e.changedTouches[0].screenX > 50) nextSlide();
+            if(e.changedTouches[0].screenX - touchStartX > 50) prevSlide();
+        }, {passive: true});
+
+        // --- CLAY SIMULATOR ---
+        window.playClaySim = () => {
+            const icebreaker = document.getElementById('sim-icebreaker');
+            icebreaker.style.opacity = '0';
+            
+            setTimeout(() => {
+                icebreaker.innerHTML = "Processing OpenAI prompt...";
+                icebreaker.style.opacity = '1';
+            }, 300);
+
+            setTimeout(() => {
+                icebreaker.innerHTML = "\"Félicitations Jean pour ton dernier post sur l'IA générative (très vrai sur la productivité marketing). Chez DCS, on aide les CMO à...\"";
+            }, 1800);
+        };
+
+        // --- QUIZ LOGIC ---
+        window.checkQuiz = () => {
+            const answers = {
+                q1: 'B', q2: 'C', q3: 'A', q4: 'B', q5: 'B',
+                q6: 'A', q7: 'B', q8: 'B', q9: 'B', q10: 'A'
+            };
+            let score = 0;
+            
+            for (let i = 1; i <= 10; i++) {
+                const qName = 'q' + i;
+                const selected = document.querySelector(`input[name="${qName}"]:checked`);
+                const qCard = document.getElementById(`qcard-${i}`);
+                
+                // Reset styling
+                qCard.classList.remove('border-emerald-500', 'border-red-500', 'bg-emerald-50', 'bg-red-50', 'border-transparent');
+                
+                if (selected) {
+                    if (selected.value === answers[qName]) {
+                        score++;
+                        qCard.classList.add('border-emerald-500', 'bg-emerald-50');
+                    } else {
+                        qCard.classList.add('border-red-500', 'bg-red-50');
+                    }
+                } else {
+                    // Highlight unanswered
+                    qCard.classList.add('border-amber-400');
+                }
+            }
+            
+            const resultBox = document.getElementById('quiz-result');
+            resultBox.classList.remove('hidden', 'bg-emerald-100', 'text-emerald-800', 'border-emerald-300', 'bg-amber-100', 'text-amber-800', 'border-amber-300', 'bg-red-100', 'text-red-800', 'border-red-300');
+            
+            resultBox.innerHTML = `Score final : ${score} / 10`;
+            
+            if (score === 10) {
+                resultBox.classList.add('bg-emerald-100', 'text-emerald-800', 'border-emerald-300');
+                resultBox.innerHTML += `<br><span class="text-sm font-medium">Parfait ! Masterclass validée.</span>`;
+            } else if (score >= 7) {
+                resultBox.classList.add('bg-amber-100', 'text-amber-800', 'border-amber-300');
+                resultBox.innerHTML += `<br><span class="text-sm font-medium">Très bon, quelques révisions sur la technique !</span>`;
+            } else {
+                resultBox.classList.add('bg-red-100', 'text-red-800', 'border-red-300');
+                resultBox.innerHTML += `<br><span class="text-sm font-medium">Relisez la formation avant de lancer vos campagnes ;)</span>`;
+            }
+            
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'end' });
+        };
+
+        updateSlide();
+    })();
+    </script>
+</body>
+</html>
